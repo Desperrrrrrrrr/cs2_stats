@@ -1,0 +1,21 @@
+# Виртуальное окружение и кэш Python
+cs2/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.so
+
+# Локальные конфиги (не из репо)
+*.local
+.env
+
+# Служебные файлы ОС и редакторов
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
