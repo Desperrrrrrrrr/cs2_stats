@@ -62,12 +62,27 @@
 
 ### 2. Запуск сервера (на виртуалке)
 
+**Вручную** (терминал держи открытым):
+
 ```bash
 cd ~/cs2_tab   # или путь к проекту
 python gsi_server.py
 ```
 
-Сервер слушает порт **3002** на всех интерфейсах (`0.0.0.0`). Оставь терминал открытым. В консоли при игре появятся строки вида:
+**Как служба (автозапуск после перезагрузки):**
+
+1. Скопируй unit-файл в systemd и включи службу (путь в файле — `/home/desper/cs2_tab`; если проект в другом каталоге — отредактируй `WorkingDirectory` и `ExecStart` в `cs2-gsi-overlay.service`):
+
+```bash
+sudo cp /home/desper/cs2_tab/cs2-gsi-overlay.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable cs2-gsi-overlay
+sudo systemctl start cs2-gsi-overlay
+```
+
+2. Проверка: `sudo systemctl status cs2-gsi-overlay`. Логи: `journalctl -u cs2-gsi-overlay -f`. Перезапуск службы: `sudo systemctl restart cs2-gsi-overlay`.
+
+Сервер слушает порт **3002** на всех интерфейсах (`0.0.0.0`). В консоли при игре (или в журнале службы) появятся строки вида:
 
 ```
 [POST] от 172.19.160.1 путь: / размер: 1249 байт
@@ -121,6 +136,7 @@ python gsi_server.py
 | `gsi_server.py` | HTTP-сервер: принимает GSI от игры, отдаёт /overlay и /stats |
 | `gamestate_integration_obs.cfg` | Конфиг для игры при сервере на VM (подставь свой IP в `uri`) |
 | `gamestate_integration_obs_localhost.cfg` | Конфиг для игры при сервере на localhost |
+| `cs2-gsi-overlay.service` | Unit systemd для запуска сервера как службы с автозапуском после перезагрузки |
 | `README.md` | Эта инструкция |
 
 Другой порт (не 3002): `CS2_GSI_PORT=3003 python gsi_server.py` — тогда в конфиге и в OBS укажи тот же порт.

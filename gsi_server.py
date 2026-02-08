@@ -126,19 +126,32 @@ OVERLAY_HTML = """<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
+    html, body {
       font-family: "Orbitron", "Segoe UI", system-ui, sans-serif;
       background: transparent;
       color: #fff;
-      padding: 12px 20px;
+      padding: 0;
+      margin: 0;
       text-shadow: 0 0 8px rgba(0,0,0,0.9), 0 1px 2px #000;
+      width: max-content;
+      min-width: 0;
     }
     .stats {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 16px;
       font-size: 28px;
       font-weight: 700;
+      background: linear-gradient(135deg,
+        rgba(55, 50, 85, 0.6) 0%,
+        rgba(85, 55, 80, 0.55) 40%,
+        rgba(75, 60, 45, 0.6) 100%);
+      padding: 10px 22px;
+      border-radius: 8px;
+      width: max-content;
+    }
+    .stats > div {
+      white-space: nowrap;
     }
     .kills { color: #4ade80; }
     .deaths { color: #f87171; }
