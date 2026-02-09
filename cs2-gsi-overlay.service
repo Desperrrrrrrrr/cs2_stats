@@ -1,5 +1,5 @@
 [Unit]
-Description=CS2/CS:GO GSI overlay server for OBS (K/D and chickens counter)
+Description=CS2/CS:GO GSI overlay server for OBS (K/D counter)
 After=network-online.target
 Wants=network-online.target
 
@@ -10,8 +10,13 @@ WorkingDirectory=/home/desper/cs2_tab
 ExecStart=/usr/bin/python3 /home/desper/cs2_tab/gsi_server.py
 Restart=always
 RestartSec=3
+# Логи сервера ([POST], [GSI]) в journalctl
+StandardOutput=journal
+StandardError=journal
 # Порт по умолчанию 3002; другой порт: Environment=CS2_GSI_PORT=3003
 Environment=CS2_GSI_PORT=3002
+# 0 = только статы локального игрока (в спеке не подменяем); 1 = как присылает игра
+Environment=CS2_GSI_IGNORE_SPECTATOR=0
 
 [Install]
 WantedBy=multi-user.target
